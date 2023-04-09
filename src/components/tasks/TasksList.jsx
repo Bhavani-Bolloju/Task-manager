@@ -10,7 +10,7 @@ function TasksList() {
   // console.log(tasks)
 
   const [selectedValue, setSelectedValue] = useState("");
-  const [statusValue, setStatusValue] = useState('all')
+  const [statusValue, setStatusValue] = useState("all")
   const [sortTasks, setSortTasks] = useState("Asc")
 
   const filterTaskHandler = function (value) {
@@ -33,28 +33,31 @@ function TasksList() {
     filterTasks = filterTasks.filter(task => task.status == "pending");
   }
 
+  if (selectedValue == 'status' && statusValue == 'all') {
+    filterTasks = tasks
+  }
+
   //if completed status
   if (selectedValue == 'status' && statusValue == 'completed') {
     filterTasks = filterTasks.filter(task => task.status == 'completed');
   }
 
   //if status = asc
-
   if (selectedValue === 'date' && sortTasks === 'Asc') {
-    const ascitems = [...tasks].sort((a,b)=> a.date > b.date ? 1 : 0);
-   filterTasks =ascitems
+    const ascOrder = [...filterTasks].sort((a, b) => a.date > b.date ? 1 : 0);
+
+    filterTasks = ascOrder;
   }
 
   //if status = des
-
   if (selectedValue === 'date' && sortTasks === 'Des') {
-    const desitems = [...tasks].sort((a,b)=> a.date > b.date ? -1 : 0);
-    filterTasks = desitems
+    const desOrder = [...filterTasks].sort((a, b) => a.date < b.date ? -1 : 0);
+  
+    filterTasks = desOrder;
   }
 
-
   return (
-    <div className="flex items-end flex-col gap-5">
+    <div className="mt-4 flex flex-col">
       <FilterTask onFilter={filterTaskHandler} value={selectedValue} onStatus={filterByStatusHandler} onSort={ sortByDateHandler} />
       {filterTasks.map((item) => (
         <TaskItem

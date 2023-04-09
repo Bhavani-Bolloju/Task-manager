@@ -48,10 +48,9 @@ function TaskItem({ id, task, status, date, edit }) {
 
   return (
     <div
-      className="bg-[#f6fcf8] text-[#11381e] pt-8 px-10 
-  pb-3  w-[500px] m-auto rounded-lg relative shadow-sm"
+      className="bg-slate-50 p-5 shadow-md rounded-lg relative mb-5"
     >
-      <div className="flex gap-3 absolute right-11 top-10 text-[#c1c1c1] text-sm">
+      <div className="flex gap-3 absolute right-11 top-10  text-sm">
         {!edit && (
           <RiEditLine
             onClick={editTaskHandler}
@@ -71,8 +70,8 @@ function TaskItem({ id, task, status, date, edit }) {
       </div>
       <>
         {!edit && (
-          <time className="text-[12px] font-thin text-[#154525] flex justify-start gap-1">
-            <RiCalendarCheckFill className="text-[#c1c1c1] text-sm" />
+          <time className="text-[12px] font-thin flex justify-start gap-1">
+            <RiCalendarCheckFill className="text-sm" />
             <span>{formatDate}</span>
           </time>
         )}
@@ -86,7 +85,7 @@ function TaskItem({ id, task, status, date, edit }) {
               required
               id="date"
               selected={startDate}
-              className="outline-none w-full bg-transparent text-[14px] font-['Aleo'] text-[#808181]"
+              className="outline-none w-full bg-transparent text-[14px] font-['Aleo'] "
               onChange={(date) => setStartDate(date)}
               placeholderText="pick a date"
               isClearable

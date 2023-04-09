@@ -47,14 +47,14 @@ function NewTask() {
   
 
   return (
-    <div className="w-[500px] m-auto">
+    <div >
       {!addTaskStatus && (
         <button
           onClick={addNewTaskHandler}
-          className="mb-8 rounded-lg text-sm "
+          className="rounded-md text-xs bg-white px-4 py-2 hover:bg-slate-300"
         >
-          <span className="bg-[#dcf4e4] text-[12px] flex gap-1  px-4 py-1">
-            <IoMdAdd className="text-base" />
+          <span className="flex items-center gap-1 ">
+            <IoMdAdd className="w-4 h-4" />
             <span>New Task</span>
           </span>
         </button>
@@ -62,29 +62,29 @@ function NewTask() {
 
       {addTaskStatus && (
         <form
-          className="flex flex-wrap gap-3 border px-5 py-8 rounded-lg mb-10"
+          className="flex flex-wrap gap-3 bg-[#ffffffc4] rounded-md border border-slate-200 px-8 py-14"
           onSubmit={onSubmitTaskHandler}
         >
           <textarea
-            className="border grow basis-full resize-none outline-none placeholder:text-sm p-2"
+            className="bg-slate-50 border border-slate-200 grow basis-full resize-none rounded-md outline-none placeholder:text-sm p-2"
             name="taskName"
-            placeholder="enter your task...."
+            placeholder="Your task...."
             rows="2"
             ref={taskRef}
             required
           />
           <label
             htmlFor="date"
-            className="border grow flex gap-2 items-center px-2 py-1"
+            className="bg-slate-50 border border-slate-200 grow flex gap-2 items-center px-2 py-1 rounded-md "
           >
             <SlCalender className="text-sm" />
             <ReactDatePicker
               required
               id="date"
               selected={startDate}
-              className="outline-none text-[14px] font-['Aleo'] text-[#808181]"
+              className="outline-none w-full h-full bg-transparent text-[14px] font-['Aleo'] placeholder:text-sm"
               onChange={(date) => setStartDate(date)}
-              placeholderText="pick a date"
+              placeholderText="Date"
               isClearable
             />
           </label>
@@ -96,13 +96,13 @@ function NewTask() {
             onChange={(e) => {
               setStatus(e.target.value);
             }}
-            className="grow  border text-[14px] outline-none"
+            className="grow bg-slate-50 border border-slate-200  text-[14px] outline-none px-2 rounded-md "
           >
-            <option value="pending">pending</option>
-            <option value="completed">completed</option>
+            <option value="pending" className="py-2 h-2">pending</option>
+            <option  value="completed" className="py-2">completed</option>
           </select>
           <div className="grow basis-full text-center mt-3">
-            <button className="border px-6 py-1.5 text-[16px]">Add</button>
+            <button className="bg-slate-100 px-6 py-1.5 text-[16px] rounded-md hover:bg-slate-200">Add</button>
           </div>
         </form>
       )}

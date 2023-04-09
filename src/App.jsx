@@ -4,7 +4,8 @@ import NewTask from "./components/newTask/NewTask";
 
 function App() {
   return (
-    <div className="w-[70%] m-auto mt-10">
+    <div className=" flex flex-col gap-5">
+      <h1 className="text-center text-2xl mb-8 font-semibold text-slate-500">Task Manager</h1>
       <NewTask />
       <TasksList />
     </div>
