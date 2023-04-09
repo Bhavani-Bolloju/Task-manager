@@ -4,8 +4,8 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #efefef;
+  /* background-color: #efefef; */
   color: #1f4e5f;
-  width: 600px;
+  width: 800px;
   margin: 100px auto 0;
 }

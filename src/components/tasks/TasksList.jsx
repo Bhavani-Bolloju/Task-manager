@@ -3,19 +3,21 @@ import React, { useState } from "react";
 import TaskItem from "./TaskItem";
 import { useSelector } from "react-redux";
 import FilterTask from "./FilterTask";
+import Search from "./Search";
 
 function TasksList() {
   const { tasks } = useSelector((status) => status.task);
 
   const [selectedValue, setSelectedValue] = useState("");
   const [statusValue, setStatusValue] = useState("all")
-  const [sortTasks, setSortTasks] = useState("Asc")
+  const [sortTasks, setSortTasks] = useState("Asc");
+  const [searchText, setSearchText] = useState('')
 
   const filterTaskHandler = function (value) {
     setSelectedValue(value);
   };
 
-  const filterByStatusHandler = function (value) {
+  const filterByStatusHandler = function (value) {  
     setStatusValue(value)
   }
 
@@ -32,7 +34,6 @@ function TasksList() {
   }
 
   if (selectedValue == 'status' && statusValue == "all") {
-    console.log('all')
     filterTasks = [...tasks]
   }
 
@@ -54,10 +55,30 @@ function TasksList() {
     filterTasks = desOrder;
   }
 
+  const searchTaskHandler = function (value) {
+    setSearchText(value);
+  }
+
+  const filterSearchTasks = tasks.filter(item => {
+    const task = item.task.toLowerCase();
+    return task.includes(searchText.toLowerCase());
+  });
+  
+  if (searchText.trim() !== '') {
+    
+    filterTasks = filterSearchTasks;
+  }
+
+
   return (
     <div className="mt-4 flex flex-col">
+      <div className="flex items-cente mb-8 justify-between">
+        <Search onSearch={ searchTaskHandler} />
       <FilterTask onFilter={filterTaskHandler} value={selectedValue} onStatus={filterByStatusHandler} onSort={ sortByDateHandler} />
-      {filterTasks.map((item) => (
+      </div>
+      { filterTasks.length > 0 ? 
+        
+        filterTasks.map((item) => (
         <TaskItem
           key={item.id}
           id={item.id}
@@ -66,7 +87,8 @@ function TasksList() {
           date={item.date}
           edit={item.edit}
         />
-      ))}
+        )) : <p className="text-center text-sm">No task found...</p>
+      }
     </div>
   );
 }

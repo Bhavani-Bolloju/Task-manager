@@ -39,7 +39,6 @@ function NewTask() {
       })
     );
 
-    //clear all the fields
     setStatus("pending");
     taskRef.current.value = "";
     setStartDate();

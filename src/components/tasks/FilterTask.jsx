@@ -4,7 +4,7 @@ import {GrFormClose} from 'react-icons/gr'
 function FilterTask({ onFilter, value, onStatus, onSort }) {
 
   return (
-    <div className='mb-8 self-end'>
+    <div className='self-end'>
       {value == "" && (
         <div className="text-sm">
           <label htmlFor="filter" className='mr-2'>Filter by: </label>
