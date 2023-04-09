@@ -7,8 +7,6 @@ import FilterTask from "./FilterTask";
 function TasksList() {
   const { tasks } = useSelector((status) => status.task);
 
-  // console.log(tasks)
-
   const [selectedValue, setSelectedValue] = useState("");
   const [statusValue, setStatusValue] = useState("all")
   const [sortTasks, setSortTasks] = useState("Asc")
@@ -30,29 +28,29 @@ function TasksList() {
 
   //if pending status
   if (selectedValue == 'status' && statusValue == 'pending') {
-    filterTasks = filterTasks.filter(task => task.status == "pending");
+    filterTasks = [...tasks].filter(task => task.status == "pending");
   }
 
-  if (selectedValue == 'status' && statusValue == 'all') {
-    filterTasks = tasks
+  if (selectedValue == 'status' && statusValue == "all") {
+    console.log('all')
+    filterTasks = [...tasks]
   }
 
   //if completed status
   if (selectedValue == 'status' && statusValue == 'completed') {
-    filterTasks = filterTasks.filter(task => task.status == 'completed');
+    filterTasks = [...tasks].filter(task => task.status == 'completed');
   }
 
   //if status = asc
   if (selectedValue === 'date' && sortTasks === 'Asc') {
-    const ascOrder = [...filterTasks].sort((a, b) => a.date > b.date ? 1 : 0);
+    const ascOrder = [...tasks].sort((a, b) =>parseInt( a.date) - parseInt( b.date) );
 
     filterTasks = ascOrder;
   }
 
   //if status = des
   if (selectedValue === 'date' && sortTasks === 'Des') {
-    const desOrder = [...filterTasks].sort((a, b) => a.date < b.date ? -1 : 0);
-  
+    const desOrder = [...filterTasks].sort((a, b) => parseInt( b.date) - parseInt( a.date))
     filterTasks = desOrder;
   }
 

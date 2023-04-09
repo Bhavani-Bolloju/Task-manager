@@ -42,7 +42,7 @@ const taskSlice = createSlice({
       state.addTaskStatus = false;
     },
     onAddTask: (state) => {
-      state.addTaskStatus = true;
+      state.addTaskStatus = !state.addTaskStatus;
     },
     deleteTask: (state, action) => {
       const items = [...state.tasks];

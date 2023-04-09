@@ -5,6 +5,7 @@ import { onAddTask, addTask } from "../redux/taskSlice";
 import ReactDatePicker from "react-datepicker";
 import { SlCalender } from "react-icons/sl";
 import { nanoid } from "nanoid";
+import {IoMdClose} from 'react-icons/io'
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -43,11 +44,10 @@ function NewTask() {
     taskRef.current.value = "";
     setStartDate();
   };
-
   
 
   return (
-    <div >
+    <div className="relative">
       {!addTaskStatus && (
         <button
           onClick={addNewTaskHandler}
@@ -62,7 +62,7 @@ function NewTask() {
 
       {addTaskStatus && (
         <form
-          className="flex flex-wrap gap-3 bg-[#ffffffc4] rounded-md border border-slate-200 px-8 py-14"
+          className="flex flex-wrap gap-3 bg-[#ffffffc4] rounded-md border border-slate-200 px-8 py-14 relative"
           onSubmit={onSubmitTaskHandler}
         >
           <textarea
@@ -102,8 +102,12 @@ function NewTask() {
             <option  value="completed" className="py-2">completed</option>
           </select>
           <div className="grow basis-full text-center mt-3">
-            <button className="bg-slate-100 px-6 py-1.5 text-[16px] rounded-md hover:bg-slate-200">Add</button>
+            <button className="bg-slate-100  px-6 py-1.5 text-[16px] rounded-md hover:bg-slate-200">Add</button>
           </div>
+          <IoMdClose className="absolute right-5 top-5 hover:cursor-pointer text-slate-500 hover:text-slate-200 hover:bg-slate-400 rounded-full" onClick={() => {
+            console.log('clidked')
+            dispatch(onAddTask())
+          }}/>
         </form>
       )}
     </div>

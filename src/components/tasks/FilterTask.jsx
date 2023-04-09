@@ -28,7 +28,10 @@ function FilterTask({ onFilter, value, onStatus, onSort }) {
           <option value="Asc">Asc</option>
           <option value="Des">Des</option>
        </select>
-        <GrFormClose onClick={()=> onFilter("")}/>
+        <GrFormClose onClick={() => {
+          onFilter("")
+          onStatus("all")
+        }} />
       </div>}
       {value == 'status' && <div className='flex items-center text-sm'>
         <label htmlFor="status" className='text-sm mr-2'>status: </label>
@@ -37,7 +40,10 @@ function FilterTask({ onFilter, value, onStatus, onSort }) {
           <option value="pending">pending</option>
           <option value="completed">completed</option>
        </select>
-        <GrFormClose onClick={()=> onFilter("")}/>
+        <GrFormClose onClick={() => {
+          onFilter("")
+          onStatus("all")
+        }} />
       </div> }
     </div>
   )
