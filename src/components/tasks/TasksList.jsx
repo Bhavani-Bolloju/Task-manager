@@ -1,30 +1,71 @@
-import React from "react";
-import {
-  RiDeleteBinLine,
-  RiEditLine,
-  RiCalendarCheckFill,
-} from "react-icons/ri";
+import React, { useState } from "react";
+
+import TaskItem from "./TaskItem";
+import { useSelector } from "react-redux";
+import FilterTask from "./FilterTask";
 
 function TasksList() {
+  const { tasks } = useSelector((status) => status.task);
+
+  // console.log(tasks)
+
+  const [selectedValue, setSelectedValue] = useState("");
+  const [statusValue, setStatusValue] = useState('all')
+  const [sortTasks, setSortTasks] = useState("Asc")
+
+  const filterTaskHandler = function (value) {
+    setSelectedValue(value);
+  };
+
+  const filterByStatusHandler = function (value) {
+    setStatusValue(value)
+  }
+
+  const sortByDateHandler = function (value) {
+    setSortTasks(value)
+  }
+
+ 
+  let filterTasks = tasks;
+
+  //if pending status
+  if (selectedValue == 'status' && statusValue == 'pending') {
+    filterTasks = filterTasks.filter(task => task.status == "pending");
+  }
+
+  //if completed status
+  if (selectedValue == 'status' && statusValue == 'completed') {
+    filterTasks = filterTasks.filter(task => task.status == 'completed');
+  }
+
+  //if status = asc
+
+  if (selectedValue === 'date' && sortTasks === 'Asc') {
+    const ascitems = [...tasks].sort((a,b)=> a.date > b.date ? 1 : 0);
+   filterTasks =ascitems
+  }
+
+  //if status = des
+
+  if (selectedValue === 'date' && sortTasks === 'Des') {
+    const desitems = [...tasks].sort((a,b)=> a.date > b.date ? -1 : 0);
+    filterTasks = desitems
+  }
+
+
   return (
-    <div
-      className="bg-[#f6fcf8] text-[#11381e] pt-8 px-10 
-      pb-3  w-[500px] m-auto rounded-lg relative shadow-sm"
-    >
-      <div className="flex gap-3 absolute right-11 top-10 text-[#c1c1c1] text-sm">
-        <RiEditLine className="hover:cursor-pointer" />
-        <RiDeleteBinLine className="hover:cursor-pointer" />
-      </div>
-      <time className="text-[12px] font-thin text-[#154525] flex justify-start gap-1">
-        <RiCalendarCheckFill className="text-[#c1c1c1] text-sm" />
-        <span>April 07, 2023</span>
-      </time>
-      <p className="text-3xl font-light">Shopping</p>
-      <p className="text-[12px] text-end mt-4 ">
-        <span className="border font-light inline-block px-4 py-1 ">
-          Pending
-        </span>
-      </p>
+    <div className="flex items-end flex-col gap-5">
+      <FilterTask onFilter={filterTaskHandler} value={selectedValue} onStatus={filterByStatusHandler} onSort={ sortByDateHandler} />
+      {filterTasks.map((item) => (
+        <TaskItem
+          key={item.id}
+          id={item.id}
+          task={item.task}
+          status={item.status}
+          date={item.date}
+          edit={item.edit}
+        />
+      ))}
     </div>
   );
 }
